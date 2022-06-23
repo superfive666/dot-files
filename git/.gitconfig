@@ -1,0 +1,166 @@
+[user]
+  email = chao.wu@bitdeer.com
+  name = Wu chao
+  username = superfive
+
+[init]
+  # requires Git 2.28 or later
+  defaultBranch = main
+
+[web]
+  browser = google-chrome
+
+[color "branch"]
+  current = yellow bold
+  local = green bold
+  remote = cyan bold
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+
+[diff]
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[delta]
+	features = line-numbers decorations
+	line-numbers = true
+
+[delta "decorations"]
+	minus-style = red bold normal
+	plus-style = green bold normal
+	minus-emph-style = white bold red
+	minus-non-emph-style = red bold normal
+	plus-emph-style = white bold green
+	plus-non-emph-style = green bold normal
+	file-style = yellow bold none
+	file-decoration-style = yellow box
+	hunk-header-style = magenta bold
+	hunk-header-decoration-style = magenta box
+	minus-empty-line-marker-style = normal normal
+	plus-empty-line-marker-style = normal normal
+	line-numbers-right-format = "{np:^4}? "
+
+[gitflow "prefix"]
+	versiontag = v
+
+[sequence]
+	editor = interactive-rebase-tool
+
+[pull]
+  rebase = true
+
+# Adding git alias commands based on Edwin's version
+[alias]
+  hist = log --oneline --graph --decorate --all
+  l = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cgreen\\ [%an]" --decorate --date=short
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --branches
+  a = add
+  ad = ls-files --deleted | xargs git add # add deleted files only
+  ai = add -i
+  ap = add -p
+  b = branch
+  ba = branch --all
+  bd = branch -d
+  bD = branch -D
+  bm = branch --merged
+  br = branch --remote
+  ca = commit --amend
+  cav = commit -a --verbose
+  ce = commit --no-edit
+  cev = commit --no-edit --verbose
+  cc = commit -m
+  cvc = commit --verbose -m
+  cv = commit --verbose
+  cam = commit -am
+  co = checkout
+  cob = checkout -b
+  d = diff
+  ds = diff --stat
+  dc = diff --cached
+  wdiff = diff --word-diff
+  s = status -s
+  st = stash --keep-index --include-untracked
+  sts = stash save --keep-index --include-untracked
+  stsp = stash save --keep-index --patch
+  stl = stash list
+  sta = stash apply
+  std = stash drop
+  stp = stash pop
+  stsh = stash show -p
+  rl = ref log
+  rv = remote -v
+  ri = rebase --interactive
+  rc = rebase --continue
+  ra = rebase --abort
+  pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
+  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+  psf = "!git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)"
+  seturl = remote set-url origin
+  undo = reset --soft HEAD~1
+  unstage = reset HEAD --
+  file = diff --name-only --diff-filter=d -r # list all the files in a commit
+  istrack = ls-files --error-unmatch # inform a file is git tracked
+  untrack = rm --cached # stop tracking a file
+  tagcommit = rev-list -n 1 # output commit to which a tag points
+  aliases = "!git config -l | grep alias | cut -c 7-" # list aliases
+  vdiff = difftool -y -t vimdiff
+
+  sh = show
+  she = show ':(exclude)package-lock.json'
+
+  mb = merge-base @ # determine the point where branch meets its parent
+  reb = "!r() { git rebase -i HEAD~$1; }; r" # Interactive rebase with the given number of latest commits
+  fbc = "!f() { git branch -a --contains $1; }; f" # Find branches containing commit
+  fb = "!f() { for i in `git rev-list --all --grep $1`; do git branch --all --contains $i; done | sort | uniq; }; f"
+  ft = "!f() { git describe --always --contains $1; }; f" # Find tags containing commit
+
+  # Find commits by source code
+  fc = "!f() { git log --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+
+  # Find commits by commit message
+  fm = "log --pretty=format:'%C(yellow)%h %Cblue%ad %Creset%s%Cgreen [%cn] %Cred%d' --decorate --date=short --grep"
+
+  # Remove branches that have already been merged with master, a.k.a 'delete merged' 
+  dm = "!f() { git branch --merged $1 | egrep -v '(^\\*|SIT|UAT|PROD)' | xargs -n 1 git branch -d; }; f"
+
+  sta = "!f() { git stash apply stash@{$1}; }; f" # Git stash apply at specific stash index
+
+  # Prune remote branches
+  pr = fetch origin --prune
+
+  # Check a branch has been merged into another branch(es)
+  bm = "!f() { git branch --contains $1; }; f"
+
+  contributors = shortlog --summary --numbered # List contributors with number of commits
+
+  # Checkout all rmote branches to local
+  cor = ! git branch -r | awk -F/ \"{ system(\\\"git checkout \\\" \\$NF) }\"
+
+  # fixup after staging file
+  fixup = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
+
+  # Ignore file(s) that has been committed and pushed
+  # Added a file in gitignore
+  # echo .enc > .gitignore
+  # Remove all changes
+  # git rm -r --cached .
+  # Add files again
+  # git add -A
+
+[core]
+  excludesfile = /Users/chao.wu/.gitignore_global
+  autocrlf = input
+  editor = nvim
+  bare = false
