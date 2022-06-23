@@ -2,6 +2,7 @@
   email = chao.wu@bitdeer.com
   name = Wu chao
   username = superfive
+	signingkey = B68F27F6920FDA34
 
 [init]
   # requires Git 2.28 or later
@@ -164,3 +165,9 @@
   autocrlf = input
   editor = nvim
   bare = false
+[commit]
+	gpgSign = true
+[tag]
+	gpgSign = true
+[push]
+	gpgSign = true
