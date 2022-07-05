@@ -163,7 +163,7 @@
 [core]
   excludesfile = /Users/chao.wu/.gitignore_global
   autocrlf = input
-  editor = nvim
+	editor = nvim
   bare = false
 [commit]
 	gpgSign = true
