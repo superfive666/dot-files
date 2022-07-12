@@ -106,7 +106,7 @@
   rc = rebase --continue
   ra = rebase --abort
   pl = "!git pull origin $(git rev-parse --abbrev-ref HEAD)"
-  ps = "!git push origin $(git rev-parse --abbrev-ref HEAD)"
+  ps = "!git push all $(git rev-parse --abbrev-ref HEAD)"
   psf = "!git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)"
   seturl = remote set-url origin
   undo = reset --soft HEAD~1
@@ -170,4 +170,4 @@
 [tag]
 	gpgSign = true
 [push]
-	gpgSign = true
+	gpgSign = false
